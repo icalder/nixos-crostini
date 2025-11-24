@@ -23,6 +23,8 @@
   ];
   nix.channel.enable = false;
 
+  hardware.pulseaudio.enable = true;
+
   # Search for additional packages here: https://search.nixos.org/packages
   environment.systemPackages = with pkgs; [
     neovim
@@ -35,7 +37,10 @@
       isNormalUser = true;
 
       linger = true;
-      extraGroups = [ "wheel" ];
+      extraGroups = [
+        "wheel"
+        "audio"
+      ];
     };
   };
 
