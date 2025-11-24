@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   programs.git = {
     enable = true;
@@ -22,6 +22,12 @@
     matchBlocks."*".addKeysToAgent = "yes";
   };
 
+  home.file.".npmrc" = {
+    text = ''
+      prefix=${config.home.homeDirectory}/.npm-global
+    '';
+  };
+
   # Configure another dotfile (e.g., ~/.mycustomrc) ===
   # home.file.".mycustomrc" = {
   #   source = ./dotfiles/mycustomrc; # Path to the file in your config directory
@@ -39,11 +45,19 @@
     nixfmt-rfc-style
     # Include nodejs by default as it's required by many agents and tools
     nodejs
+    deno
   ];
 
   home.sessionVariables = {
     DISPLAY = ":0";
   };
+
+  home.sessionPath = [
+    # Add custom paths to your $PATH here. For example, if you have a
+    # directory where you store your own scripts, you can add it like this:
+    # "${config.home.homeDirectory}/bin"
+    "${config.home.homeDirectory}/.npm-global/bin"
+  ];
 
   # The state version is required and should stay at the version you
   # originally installed.
