@@ -21,6 +21,7 @@
     "nix-command"
     "flakes"
   ];
+  nix.channel.enable = false;
 
   # Search for additional packages here: https://search.nixos.org/packages
   environment.systemPackages = with pkgs; [
@@ -30,9 +31,7 @@
 
   # Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users = {
-    # TODO: Replace `aldur` with the username you picked when configuring Linux
-    # in ChromeOS.
-    aldur = {
+    itcalde = {
       isNormalUser = true;
 
       linger = true;
