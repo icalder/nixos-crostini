@@ -24,6 +24,7 @@
   nix.channel.enable = false;
 
   services.pulseaudio.enable = true;
+  virtualisation.docker.enable = true;
 
   # Search for additional packages here: https://search.nixos.org/packages
   environment.systemPackages = with pkgs; [
@@ -44,6 +45,7 @@
       extraGroups = [
         "wheel"
         "audio"
+	"docker"
       ];
     };
   };
