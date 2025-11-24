@@ -1,20 +1,20 @@
 { config, pkgs, ... }:
 {
-  programs.git = {
-    enable = true;
-    settings = {
-      user = {
-        # email = "you@example.com";
-        name = "Iain Calder";
-      };
-      core = {
-        editor = "nvim";
-      };
-      pull = {
-        rebase = true;
-      };
-    };
-  };
+  #programs.git = {
+    #enable = true;
+    # settings = {
+    #   user = {
+    #     # email = "you@example.com";
+    #     name = "Iain Calder";
+    #   };
+    #   core = {
+    #     editor = "nvim";
+    #   };
+    #   pull = {
+    #     rebase = true;
+    #   };
+    # };
+  #};
 
   programs.ssh = {
     enable = true;
