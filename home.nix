@@ -46,7 +46,7 @@
     vscode
     # LSP server
     nil
-    nixfmt-rfc-style
+    nixfmt
     # Include nodejs by default as it's required by many agents and tools
     nodejs
     deno
