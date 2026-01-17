@@ -30,6 +30,7 @@
   programs.bash = {
     enable = true;
     # This prepends a 'safe' return to the top of .bashrc so home-manager user systemd script does not fail
+    # See https://github.com/nix-community/home-manager/issues/7647#issuecomment-3342582909
     # Could also be done using a case statement
     # case $- in
     #     *i*) ;;
