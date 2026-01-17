@@ -30,6 +30,11 @@
   programs.bash = {
     enable = true;
     # This prepends a 'safe' return to the top of .bashrc so home-manager user systemd script does not fail
+    # Could also be done using a case statement
+    # case $- in
+    #     *i*) ;;
+    #       *) return;;
+    # esac
     bashrcExtra = ''
       [[ $- == *i* ]] || return 0
     '';
@@ -51,16 +56,18 @@
   #   # '';
   # };
 
-  home.packages = (with pkgs; [
-    vscode
-    # LSP server
-    nil
-    nixfmt
-    # Include nodejs by default as it's required by many agents and tools
-    nodejs
-  ]) ++ (with pkgs-unstable; [
-    deno
-  ]);
+  home.packages =
+    (with pkgs; [
+      vscode
+      # LSP server
+      nil
+      nixfmt
+      # Include nodejs by default as it's required by many agents and tools
+      nodejs
+    ])
+    ++ (with pkgs-unstable; [
+      deno
+    ]);
 
   home.sessionVariables = {
     DISPLAY = ":0";
