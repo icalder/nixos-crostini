@@ -29,6 +29,10 @@
 
   programs.bash = {
     enable = true;
+    # This prepends a 'safe' return to the top of .bashrc so home-manager user systemd script does not fail
+    bashrcExtra = ''
+      [[ $- == *i* ]] || return 0
+    '';
   };
 
   home.file.".npmrc" = {
