@@ -1,22 +1,37 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs =
     {
       nixos-generators,
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       self,
       ...
     }@inputs:
     let
+      # NOTE: change to `x86_64-linux` if that is your architecture.
+      targetSystem = "aarch64-linux";
+
+      pkgs-unstable = import nixpkgs-unstable {
+        system = targetSystem;
+        config.allowUnfree = true;
+      };
+
+      # https://nixos-and-flakes.thiscute.world/nixos-with-flakes/nixos-flake-and-module-system
+      specialArgs = {
+        inherit inputs pkgs-unstable;
+      };
+
       modules = [
         ./configuration.nix
         home-manager.nixosModules.home-manager
@@ -24,22 +39,17 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.itcalde = ./home.nix;
+          home-manager.extraSpecialArgs = { inherit pkgs-unstable; };
         }
         # Allow unfree packages
         { nixpkgs.config.allowUnfree = true; }
       ];
-
-      # https://nixos-and-flakes.thiscute.world/nixos-with-flakes/nixos-flake-and-module-system
-      specialArgs = { inherit inputs; };
 
       # https://ayats.org/blog/no-flake-utils
       forAllSystems = nixpkgs.lib.genAttrs [
         "x86_64-linux"
         "aarch64-linux"
       ];
-
-      # NOTE: change to `x86_64-linux` if that is your architecture.
-      targetSystem = "aarch64-linux";
 
     in
     {

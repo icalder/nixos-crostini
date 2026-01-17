@@ -1,19 +1,24 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
 {
   #programs.git = {
-    #enable = true;
-    # settings = {
-    #   user = {
-    #     # email = "you@example.com";
-    #     name = "Iain Calder";
-    #   };
-    #   core = {
-    #     editor = "nvim";
-    #   };
-    #   pull = {
-    #     rebase = true;
-    #   };
-    # };
+  #enable = true;
+  # settings = {
+  #   user = {
+  #     # email = "you@example.com";
+  #     name = "Iain Calder";
+  #   };
+  #   core = {
+  #     editor = "nvim";
+  #   };
+  #   pull = {
+  #     rebase = true;
+  #   };
+  # };
   #};
 
   programs.ssh = {
@@ -42,15 +47,16 @@
   #   # '';
   # };
 
-  home.packages = with pkgs; [
+  home.packages = (with pkgs; [
     vscode
     # LSP server
     nil
     nixfmt
     # Include nodejs by default as it's required by many agents and tools
     nodejs
+  ]) ++ (with pkgs-unstable; [
     deno
-  ];
+  ]);
 
   home.sessionVariables = {
     DISPLAY = ":0";
