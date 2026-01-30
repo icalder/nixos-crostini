@@ -24,7 +24,12 @@
   nix.channel.enable = false;
 
   services.pulseaudio.enable = true;
-  virtualisation.docker.enable = true;
+
+  virtualisation.podman = {
+    enable = true;
+    # Ensure containers can talk to each other via DNS (essential for Compose)
+    defaultNetwork.settings.dns_enabled = true;
+  };
 
   services.openssh = {
     enable = true;

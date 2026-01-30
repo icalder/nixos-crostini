@@ -68,6 +68,7 @@
     ])
     ++ (with pkgs-unstable; [
       deno
+      gemini-cli-bin
     ]);
 
   home.sessionVariables = {
