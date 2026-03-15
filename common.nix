@@ -42,9 +42,9 @@ in
     firewall.enable = false;
 
     # Disabling IPv6 makes the boot a bit faster (DHCPD)
-    enableIPv6 = false;
+    enableIPv6 = true;
     dhcpcd = {
-      IPv6rs = false;
+      # IPv6rs = false;
       wait = "background";
       extraConfig = "noarp";
     };
